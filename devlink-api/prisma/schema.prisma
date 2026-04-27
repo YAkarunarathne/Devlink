@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String      @id @default(uuid())
+  name         String
+  email        String      @unique
+  passwordHash String
+  createdAt    DateTime    @default(now())
+  profile      Profile?
+  jobListings  JobListing[]
+}
+
+model Profile {
+  id         String   @id @default(uuid())
+  bio        String?
+  avatarUrl  String?
+  techStack  String[]
+  githubUrl  String?
+  websiteUrl String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  userId     String   @unique
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model JobListing {
+  id          String      @id @default(uuid())
+  title       String
+  description String
+  type        JobType
+  location    String
+  salaryMin   Int?
+  salaryMax   Int?
+  tags        String[]
+  status      JobStatus   @default(OPEN)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  postedById  String
+  postedBy    User        @relation(fields: [postedById], references: [id])
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
+enum JobStatus {
+  OPEN
+  CLOSED
+}

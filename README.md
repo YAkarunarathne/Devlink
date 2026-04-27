@@ -7,7 +7,7 @@ A full-stack web application where developers can build a public profile and pos
 - Database: PostgreSQL + Prisma
 - Auth: JWT + bcrypt
 
-## Setup
+## Setup.
 
 ### Backend
 ```bash

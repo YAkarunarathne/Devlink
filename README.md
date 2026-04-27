@@ -13,7 +13,7 @@ A full-stack web application where developers can build a public profile and pos
 ```bash
 cd devlink-api
 npm install
-cp .env.example .env   # fill in your values
+cp .env.example .env   
 npx prisma migrate dev
 npm run start:dev
 ```
